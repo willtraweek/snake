@@ -11,10 +11,10 @@ display = pygame.display.set_mode((400, 400))  # 400 PIXEL SQUARE
 display.fill((0, 0, 0))  # SET THE BACKGROUND TO BLACK
 pygame.display.set_caption("Snake")
 
-board = Board(400)
-
 
 def main():
+    board = Board(400)
+
     while True:
         board.draw(display)
 

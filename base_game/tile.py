@@ -1,5 +1,6 @@
 import pygame
 from enum import Enum
+from typing import Optional
 
 
 class TileType(Enum):
@@ -14,6 +15,11 @@ class Tile:
         self.color = color
         self.rect = self.surface.get_rect(center=pos)
         self.type = TileType.BLANK
+
+        self.north: Optional[Tile] = None
+        self.east: Optional[Tile] = None
+        self.south: Optional[Tile] = None
+        self.west: Optional[Tile] = None
 
     def draw(self, display_surface):
         display_surface.blit(self.surface, self.rect)
