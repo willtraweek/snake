@@ -2,6 +2,9 @@ import pygame
 from enum import Enum
 from typing import Optional
 
+BLACK = (0, 0, 0)
+RED = (255, 0, 0)
+WHITE = (255, 255, 255)
 
 class TileType(Enum):
     BLANK = 0
