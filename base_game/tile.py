@@ -17,7 +17,7 @@ class Tile:
         self.pos = pos
         self.color = color
         self.rect = self.surface.get_rect(center=pos)
-        self.tile_type = TileType.BLANK
+        self.type = TileType.BLANK
 
         self.north: Optional[Tile] = None
         self.east: Optional[Tile] = None
@@ -37,12 +37,12 @@ class Tile:
         self.surface.fill(color)
 
     @property
-    def tile_type(self):
-        return self.__tile_type
+    def type(self):
+        return self.__type
 
-    @tile_type.setter
-    def tile_type(self, type: TileType):
-        self.__tile_type = type
+    @type.setter
+    def type(self, type: TileType):
+        self.__type = type
         if type == TileType.BLANK:
             self.color = BLACK
         elif type == TileType.FOOD:
