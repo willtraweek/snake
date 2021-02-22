@@ -1,4 +1,5 @@
-from .tile import Tile
+from .tile import Tile, TileType
+import random
 
 
 class Board:
@@ -34,3 +35,15 @@ class Board:
     def draw(self, display_surface):
         for tile in self.tiles.values():
             tile.draw(display_surface)
+
+    def get_blank_tiles(self):
+        blanks = set()
+        for tile in self.tiles.values():
+            if tile.type == TileType.BLANK:
+                blanks.add(tile)
+        return blanks
+
+    def generate_food(self):
+        blanks = self.get_blank_tiles()
+        tile = random.sample(blanks, 1)[0]
+        tile.type = TileType.FOOD
