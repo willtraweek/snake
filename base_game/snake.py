@@ -6,6 +6,11 @@ class Snake:
     def __init__(self, head: Tile, tail_direction: Direction = Direction.WEST):
         self.snake = deque([])
         self.length = len(self.snake)
+
+        # SINCE WE'RE USING A DEQUE, SET TAIL FIRST IF YOU CAN -- IF NOT, JUST SET HEAD
+        tail = head.border[tail_direction]
+        if self.check_tile(tail):
+            self.head = tail
         self.head: Tile = head
 
     def check_move(self, direction: Direction):
