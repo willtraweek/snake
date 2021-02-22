@@ -1,5 +1,6 @@
 from .tile import Tile, TileType, Direction
 import random
+from .snake import Snake
 
 
 class Board:
@@ -16,6 +17,7 @@ class Board:
                 self.tiles[(x, y)] = Tile((pos_x, pos_y), size // num_tiles - 1)
 
         self.setup_references()
+        self.setup_snake(num_tiles)
 
     def setup_references(self):
         """
@@ -33,6 +35,10 @@ class Board:
                     tile.border[Direction.NORTH] = self.tiles[x, y - 1]
                 if y != self.num_tiles - 1:
                     tile.border[Direction.SOUTH] = self.tiles[x, y + 1]
+
+    def setup_snake(self, num_tiles):
+        middle = num_tiles//2
+        self._snake = Snake(self.tiles[(middle, middle)])
 
     def draw(self, display_surface):
         for tile in self.tiles.values():
