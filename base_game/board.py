@@ -4,21 +4,23 @@ from .snake import Snake
 
 
 class Board:
-    def __init__(self, size: int, num_tiles: int = 10):
+    def __init__(self, size: int, num_tiles: int = 10, offset: int = 0):
         self.num_tiles = num_tiles
+        self.size = size
+        self.offset = offset
+
+        self.reset()
+
+    def setup_tiles(self):
         self.tiles = {}
 
-        for x in range(num_tiles):
-            pos_x = ((size-num_tiles) // num_tiles) * x + x
+        for x in range(self.num_tiles):
+            pos_x = ((self.size-self.num_tiles) // self.num_tiles) * x + x + self.offset
 
-            for y in range(num_tiles):
-                pos_y = ((size-num_tiles) // num_tiles) * y + y
+            for y in range(self.num_tiles):
+                pos_y = ((self.size-self.num_tiles) // self.num_tiles) * y + y
 
-                self.tiles[(x, y)] = Tile((pos_x, pos_y), size // num_tiles - 1)
-
-        self.setup_references()
-        self.setup_snake(num_tiles)
-        self.generate_food()
+                self.tiles[(x, y)] = Tile((pos_x, pos_y), self.size // self.num_tiles - 1)
 
     def setup_references(self):
         """
@@ -37,13 +39,19 @@ class Board:
                 if y != self.num_tiles - 1:
                     tile.border[Direction.SOUTH] = self.tiles[x, y + 1]
 
-    def setup_snake(self, num_tiles):
-        middle = num_tiles//2
+    def setup_snake(self):
+        middle = self.num_tiles//2
         self._snake = Snake(self.tiles[(middle, middle)])
 
     def draw(self, display_surface):
         for tile in self.tiles.values():
             tile.draw(display_surface)
+
+    def reset(self):
+        self.setup_tiles()
+        self.setup_references()
+        self.setup_snake()
+        self.generate_food()
 
     def check_move(self, direction: Direction):
         return self._snake.check_move(direction)

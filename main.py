@@ -9,13 +9,13 @@ FPS = 5
 BOARD_SIZE = 400
 pygame_clock = pygame.time.Clock()
 
-display = pygame.display.set_mode((400, 400))  # 400 PIXEL SQUARE
-display.fill((0, 0, 0))  # SET THE BACKGROUND TO BLACK
+display = pygame.display.set_mode((600, 400))
+display.fill((128, 128, 128))  # SET THE BACKGROUND COLOR
 pygame.display.set_caption("Snake")
 
 
 def main():
-    board = Board(BOARD_SIZE)
+    board = Board(BOARD_SIZE, offset=200)
 
     current_direction = Direction.EAST
     potential_direction = current_direction
@@ -45,7 +45,7 @@ def main():
         try:
             board.move(current_direction)
         except RuntimeError:
-            board = Board(BOARD_SIZE)
+            board.reset()
         pygame.display.flip()
         pygame_clock.tick(FPS)
 
