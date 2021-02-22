@@ -9,6 +9,7 @@ WHITE = (255, 255, 255)
 class TileType(Enum):
     BLANK = 0
     FOOD = 1
+    SNAKE = 2
 
 
 class Tile:
@@ -41,9 +42,11 @@ class Tile:
         return self.__type
 
     @type.setter
-    def type(self, type: TileType):
-        self.__type = type
-        if type == TileType.BLANK:
+    def type(self, tile_type: TileType):
+        self.__type = tile_type
+        if tile_type == TileType.BLANK:
             self.color = BLACK
-        elif type == TileType.FOOD:
+        elif tile_type == TileType.FOOD:
             self.color = RED
+        elif tile_type == TileType.SNAKE:
+            self.color = WHITE
