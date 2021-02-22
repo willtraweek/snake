@@ -40,14 +40,14 @@ class Snake:
     @head.setter
     def head(self, new_head: Tile):
         if self.check_tile(new_head):
-            new_head.type = TileType.SNAKE
-            self.snake.appendleft(new_head)
-            self.__head = new_head
-
             if new_head.type == TileType.FOOD or self.length <= 1:
                 self.length += 1
             else:
                 old_tail = self.snake.pop()
                 old_tail.type = TileType.BLANK
+
+            new_head.type = TileType.SNAKE
+            self.snake.appendleft(new_head)
+            self.__head = new_head
         else:
             raise RuntimeError("Illegal move made")
