@@ -45,4 +45,4 @@ class Snake:
                 old_tail = self.snake.pop()
                 old_tail.type = TileType.BLANK
         else:
-            RuntimeError("Illegal move made")
+            raise RuntimeError("Illegal move made")
