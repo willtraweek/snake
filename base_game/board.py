@@ -44,6 +44,12 @@ class Board:
         for tile in self.tiles.values():
             tile.draw(display_surface)
 
+    def check_move(self, direction: Direction):
+        return self._snake.check_move(direction)
+
+    def move(self, direction: Direction):
+        self._snake.head = self._snake.head.border[direction]
+
     def get_blank_tiles(self):
         blanks = set()
         for tile in self.tiles.values():
