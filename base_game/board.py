@@ -18,6 +18,7 @@ class Board:
 
         self.setup_references()
         self.setup_snake(num_tiles)
+        self.generate_food()
 
     def setup_references(self):
         """
@@ -48,7 +49,10 @@ class Board:
         return self._snake.check_move(direction)
 
     def move(self, direction: Direction):
+        current_length = self._snake.length
         self._snake.head = self._snake.head.border[direction]
+        if current_length != self._snake.length:  # IF THE SNAKE ATE THE FOOD THAT WAS THERE
+            self.generate_food()
 
     def get_blank_tiles(self):
         blanks = set()
