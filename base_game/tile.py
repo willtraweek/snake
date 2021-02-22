@@ -13,10 +13,9 @@ class TileType(Enum):
 
 
 class Tile:
-    def __init__(self, pos: (int, int), size: int, color: (int, int, int) = (0, 0, 0)):
+    def __init__(self, pos: (int, int), size: int):
         self.surface = pygame.Surface((size, size))
         self.pos = pos
-        self.color = color
         self.rect = self.surface.get_rect(center=pos)
         self.type = TileType.BLANK
 
