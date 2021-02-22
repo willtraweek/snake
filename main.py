@@ -5,7 +5,8 @@ from base_game.board import Board
 from base_game.tile import Direction
 
 pygame.init()
-FPS = 60
+FPS = 5
+BOARD_SIZE = 400
 pygame_clock = pygame.time.Clock()
 
 display = pygame.display.set_mode((400, 400))  # 400 PIXEL SQUARE
@@ -14,7 +15,7 @@ pygame.display.set_caption("Snake")
 
 
 def main():
-    board = Board(400)
+    board = Board(BOARD_SIZE)
 
     current_direction = Direction.EAST
     potential_direction = current_direction
@@ -22,7 +23,6 @@ def main():
     while True:
         board.draw(display)
 
-        pygame.display.flip()
         for event in pygame.event.get():
             if event.type == QUIT:
                 pygame.quit()
@@ -41,7 +41,12 @@ def main():
 
                 if board.check_move(potential_direction):
                     current_direction = potential_direction
-        board.move(current_direction)
+
+        try:
+            board.move(current_direction)
+        except RuntimeError:
+            board = Board(BOARD_SIZE)
+        pygame.display.flip()
         pygame_clock.tick(FPS)
 
 
