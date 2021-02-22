@@ -4,14 +4,9 @@ from collections import deque
 
 class Snake:
     def __init__(self, head: Tile, tail_direction: Direction = Direction.WEST):
-        self.snake = deque([head])
-        self.head: Tile = head
-
-        if self.check_move(tail_direction):
-            self.head.border[tail_direction].type = TileType.SNAKE
-            self.snake.append(head.border[tail_direction])
-
+        self.snake = deque([])
         self.length = len(self.snake)
+        self.head: Tile = head
 
     def check_move(self, direction: Direction):
         """
@@ -41,13 +36,13 @@ class Snake:
     def head(self, new_head: Tile):
         if self.check_tile(new_head):
             new_head.type = TileType.SNAKE
-            self.snake.append(new_head)
+            self.snake.appendleft(new_head)
             self.__head = new_head
 
-            if new_head.type == TileType.FOOD:
+            if new_head.type == TileType.FOOD or self.length <= 1:
                 self.length += 1
             else:
                 old_tail = self.snake.pop()
-                old_tail.type == TileType.BLANK
+                old_tail.type = TileType.BLANK
         else:
             RuntimeError("Illegal move made")
