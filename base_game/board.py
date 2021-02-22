@@ -14,7 +14,7 @@ class Board:
             for y in range(num_tiles):
                 pos_y = (size // num_tiles) * y + offset
 
-                self.tiles[(x, y)] = Tile((pos_x, pos_y), size // num_tiles)
+                self.tiles[(x, y)] = Tile((pos_x, pos_y), size // num_tiles - 2, (255, 255, 255))
 
         self.setup_references()
 
