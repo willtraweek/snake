@@ -24,7 +24,7 @@ class Tile:
     def __init__(self, pos: (int, int), size: int):
         self.surface = pygame.Surface((size, size))
         self.pos = pos
-        self.rect = self.surface.get_rect(center=pos)
+        self.rect = self.surface.get_rect(topleft=pos)
         self.type = TileType.BLANK
 
         self.border: Dict[Direction, Optional[Tile]] = {
