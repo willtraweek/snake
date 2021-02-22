@@ -15,11 +15,15 @@ class Board:
             for y in range(num_tiles):
                 pos_y = (size // num_tiles) * y + offset
 
-                self.tiles[(x, y)] = Tile((pos_x, pos_y), size // num_tiles - 2, (255, 255, 255))
+                self.tiles[(x, y)] = Tile((pos_x, pos_y), size // num_tiles - 2)
 
         self.setup_references()
 
     def setup_references(self):
+        """
+        Iterates through the list of tiles and gets references to the bordering tiles, then gives the tile that
+        information
+        """
         for x in range(self.num_tiles):
             for y in range(self.num_tiles):
                 tile = self.tiles[(x, y)]
