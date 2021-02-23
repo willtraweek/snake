@@ -22,7 +22,7 @@ def main():
     board = Board(BOARD_SIZE, offset=MENU_WIDTH)
     menu = Menu(MENU_WIDTH, WINDOW_WIDTH, WINDOW_HEIGHT, BACKGROUND_COLOR)
 
-    current_direction = Direction.EAST
+    current_direction = Direction.EAST if board.check_move(Direction.EAST) else Direction.WEST
     potential_direction = current_direction
 
     while True:
@@ -51,6 +51,7 @@ def main():
         try:
             board.move(current_direction)
         except RuntimeError:
+            current_direction = Direction.EAST if board.check_move(Direction.EAST) else Direction.WEST
             board.reset()
         pygame.display.flip()
         pygame_clock.tick(FPS)

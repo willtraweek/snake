@@ -53,7 +53,7 @@ class Board:
         self.setup_references()
         self.setup_snake()
         self.generate_food()
-        Menu.score = 0  # THIS UPDATES THE SCORE COUNTER ON THE SIDE
+        Menu.reset_score()
 
     def check_move(self, direction: Direction):
         return self._snake.check_move(direction)
