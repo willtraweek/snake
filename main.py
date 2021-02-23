@@ -3,24 +3,30 @@ from pygame.locals import *
 import sys
 from base_game.board import Board
 from base_game.tile import Direction
+from base_game.menu import Menu
 
 pygame.init()
 FPS = 5
+WINDOW_WIDTH = 600
+WINDOW_HEIGHT = 400
 BOARD_SIZE = 400
+BACKGROUND_COLOR = (128, 128, 128)
+MENU_WIDTH = WINDOW_WIDTH - BOARD_SIZE
 pygame_clock = pygame.time.Clock()
 
-display = pygame.display.set_mode((600, 400))
-display.fill((128, 128, 128))  # SET THE BACKGROUND COLOR
+display = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 pygame.display.set_caption("Snake")
 
 
 def main():
-    board = Board(BOARD_SIZE, offset=200)
+    board = Board(BOARD_SIZE, offset=MENU_WIDTH)
+    menu = Menu(MENU_WIDTH, WINDOW_WIDTH, WINDOW_HEIGHT, BACKGROUND_COLOR)
 
     current_direction = Direction.EAST
     potential_direction = current_direction
 
     while True:
+        menu.draw(display)
         board.draw(display)
 
         for event in pygame.event.get():

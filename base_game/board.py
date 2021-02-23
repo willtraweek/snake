@@ -1,6 +1,7 @@
 from .tile import Tile, TileType, Direction
 import random
 from .snake import Snake
+from .menu import Menu
 
 
 class Board:
@@ -52,6 +53,7 @@ class Board:
         self.setup_references()
         self.setup_snake()
         self.generate_food()
+        Menu.score = 0  # THIS UPDATES THE SCORE COUNTER ON THE SIDE
 
     def check_move(self, direction: Direction):
         return self._snake.check_move(direction)
@@ -60,6 +62,7 @@ class Board:
         current_length = self._snake.length
         self._snake.head = self._snake.head.border[direction]
         if current_length != self._snake.length:  # IF THE SNAKE ATE THE FOOD THAT WAS THERE
+            Menu.score += 1
             self.generate_food()
 
     def get_blank_tiles(self):
