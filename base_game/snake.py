@@ -1,4 +1,4 @@
-from .tile import Tile, TileType, Direction
+from base_game.tile import Tile, TileType, Direction
 from collections import deque
 
 

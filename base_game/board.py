@@ -1,7 +1,7 @@
-from .tile import Tile, TileType, Direction
+from base_game.tile import Tile, TileType, Direction
 import random
-from .snake import Snake
-from .menu import Menu
+from base_game.snake import Snake
+from base_game.menu import Menu
 
 
 class Board:
