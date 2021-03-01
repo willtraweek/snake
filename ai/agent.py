@@ -83,17 +83,40 @@ class Population:
             population.append(child)
         self.population = population
 
-
-    def select_parent(self):
+    def select_parents(self):
         """
         Uses a fitness proportionate methodology to select parents for breeding.  Individuals with higher fitness scores
         are more likely to be selected.  In a population of 4 with weights [1, 5, 10, 20], the first individual will
         have a 1/36 chance of being selected, and the last will have a 20/36 chance.
         """
-        sum_fitness = 0
+        temp_queue = PriorityQueue(self.population_size)
         for pop in self.population:
-            sum_fitness += pop.fitness
+            temp_queue.put(pop)
 
+        self.population = []
+        for i in range(self.population_size):
+            if i > self.population_size * .8:
+                self.population.append(temp_queue.get())
+
+        fitness_weights = []
+        for pop in self.population:
+            # IF A POP HAS A NEGATIVE FITNESS, SET IT TO ZERO
+            if pop.fitness < 0:
+                pop.fitness = 0
+
+            fitness_weights.append(pop.fitness)
+
+        while len(self.population) < 2:
+            # THIS MAKES SURE THERE ARE ALWAYS 2 PARENTS
+            self.population.append(DNA())
+
+        mother = weighted_random_selection(self.population, fitness_weights)
+        father = weighted_random_selection(self.population, fitness_weights)
+        #while mother == father:
+            # PREVENT ONE STRONG GENE FROM RULING THE POOL
+            #father = weighted_random_selection(self.population, fitness_weights)
+
+        return mother, father
         temp = 0
         dna = 0
         for i in range(Math.random(sum_fitness)):
