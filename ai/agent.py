@@ -138,11 +138,26 @@ class Population:
         self.move_count = 0
 
 
+def weighted_random_selection(population, weights):
+    assert (len(population) == len(weights))
+
+    try:
+        rand = random.randrange(sum(weights))
+
         temp = 0
-        dna = 0
-        for i in range(Math.random(sum_fitness)):
-            if temp == 0: # MOVE ON TO THE NEXT GENE
-                dna = self.population[]
+        output = population[temp]
+        while rand > output.fitness:
+            rand -= output.fitness
+            temp += 1
+            output = population[temp]
+    except ValueError:
+        # OCCURS IF THERE ARE ONLY NEGATIVE FITNESSES
+        rand = random.randrange(len(population))
+
+        output = population[rand]
+    return output
+
+
 def predict(population, inputs):
     dna = population.population[population.current]
 
