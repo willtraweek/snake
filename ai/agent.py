@@ -39,6 +39,16 @@ class DNA:
 
             self.genes.append(temp)
 
+    def __lt__(self, other):
+        return self.fitness > other.fitness  # HAD TO BE FLIPPED TO WORK IN THE PRIORITY QUEUE
+
+    def predict(self, inputs):
+        temp = inputs
+        for i in range(self.depth):
+            temp = np.dot(temp, self.genes[i])
+        return temp
+
+
 class Population:
     def __init__(self, population_size):
         self.population_size = population_size
