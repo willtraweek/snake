@@ -117,6 +117,17 @@ class Population:
             #father = weighted_random_selection(self.population, fitness_weights)
 
         return mother, father
+
+    def set_current_fitness(self, score, move_count):
+        self.score += score
+        self.move_count += move_count
+
+        fitness = score * 250 if score > 2 else 0
+        fitness += move_count * 20 if move_count > 7 else -10
+        self.population[self.current].fitness = fitness
+        self.fitness += fitness
+
+        self._increment()
         temp = 0
         dna = 0
         for i in range(Math.random(sum_fitness)):
