@@ -4,6 +4,8 @@ import pygame
 class Menu:
     score = 0
     high_score = 0
+    direction = Direction.EAST
+    moves = 0
 
     def __init__(self, menu_width, window_width, window_height, background_color):
         self.font = pygame.font.SysFont("Verdana", 20)
@@ -24,6 +26,9 @@ class Menu:
 
         direction = self.font.render(f"Direction: {self.direction.name}", True, pygame.Color("black"))
         display.blit(direction, (10, 50))
+
+        moves = self.font.render(f"Moves: {self.moves}", True, pygame.Color("black"))
+        display.blit(moves, (10, 70))
     @staticmethod
     def reset_score():
         if Menu.score > Menu.high_score:

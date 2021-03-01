@@ -19,6 +19,7 @@ pygame.display.set_caption("Snake")
 
 
 def main():
+    move_count = 0
     board = Board(BOARD_SIZE, offset=MENU_WIDTH)
     menu = Menu(MENU_WIDTH, WINDOW_WIDTH, WINDOW_HEIGHT, BACKGROUND_COLOR)
 
@@ -45,14 +46,18 @@ def main():
                 elif event.key in [K_LEFT, K_a]:
                     potential_direction = current_direction.WEST
 
-                if board.check_move(potential_direction):
-                    current_direction = potential_direction
+        if board.check_move(potential_direction):
+            current_direction = potential_direction
 
         try:
+            Menu.direction = current_direction
+            move_count += 1
+            Menu.moves = move_count
             board.move(current_direction)
         except RuntimeError:
             current_direction = Direction.EAST if board.check_move(Direction.EAST) else Direction.WEST
             board.reset()
+            move_count = 0
         pygame.display.flip()
         pygame_clock.tick(FPS)
 
