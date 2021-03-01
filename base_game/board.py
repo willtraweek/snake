@@ -16,10 +16,10 @@ class Board:
         self.tiles = {}
 
         for x in range(self.num_tiles):
-            pos_x = ((self.size-self.num_tiles) // self.num_tiles) * x + x + self.offset
+            pos_x = ((self.size - self.num_tiles) // self.num_tiles) * x + x + self.offset
 
             for y in range(self.num_tiles):
-                pos_y = ((self.size-self.num_tiles) // self.num_tiles) * y + y
+                pos_y = ((self.size - self.num_tiles) // self.num_tiles) * y + y
 
                 self.tiles[(x, y)] = Tile((pos_x, pos_y), self.size // self.num_tiles - 1)
 
@@ -41,7 +41,7 @@ class Board:
                     tile.border[Direction.SOUTH] = self.tiles[x, y + 1]
 
     def setup_snake(self):
-        middle = self.num_tiles//2
+        middle = self.num_tiles // 2
         self._snake = Snake(self.tiles[(middle, middle)])
 
     def draw(self, display_surface):
