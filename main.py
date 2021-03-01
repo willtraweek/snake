@@ -18,9 +18,17 @@ display = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 pygame.display.set_caption("Snake")
 
 
+class Player(Enum):
+    HUMAN = 0
+    AI = 1
+
+
 def main():
+    FPS = 5
     move_count = 0
     board = Board(BOARD_SIZE, offset=MENU_WIDTH)
+    agent.DNA.input_length = len(board.get_ai_inputs())
+    population = agent.Population(1000)
     menu = Menu(MENU_WIDTH, WINDOW_WIDTH, WINDOW_HEIGHT, BACKGROUND_COLOR)
 
     current_direction = Direction.EAST if board.check_move(Direction.EAST) else Direction.WEST
@@ -28,6 +36,8 @@ def main():
 
     while True:
         menu.draw(display)
+        if player == Player.AI:
+            menu.draw_ai(display)
         board.draw(display)
 
         for event in pygame.event.get():
@@ -56,6 +66,10 @@ def main():
             board.move(current_direction)
         except RuntimeError:
             current_direction = Direction.EAST if board.check_move(Direction.EAST) else Direction.WEST
+            if player == Player.AI:
+                population.set_current_fitness(Menu.score, move_count)
+                Menu.generation = population.generation
+                Menu.individual = population.current
             board.reset()
             move_count = 0
         pygame.display.flip()
