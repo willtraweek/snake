@@ -51,3 +51,74 @@ class Snake:
             self.__head = new_head
         else:
             raise RuntimeError("Illegal move made")
+
+    def get_distance_to_wall(self, direction):
+        tile = self.head
+        output = 0
+        tile = tile.border[direction]
+        while tile is not None:
+            output += 1
+            tile = tile.border[direction]
+        return output
+
+    def get_distance_to_tile_type(self, direction, max_distance, tile_type):
+        tile = self.head
+        output = 0
+        tile = tile.border[direction]
+        while True:
+            output += 1
+            if tile is None:
+                return max_distance
+            elif tile.type == tile_type:
+                return output
+            tile = tile.border[direction]
+
+    def get_distance_to_walls_diagonal(self):
+        output = [0, 0, 0, 0]
+        for i in range(4):
+            tile = self.head
+
+            direction_1 = Direction(i)
+            direction_2 = Direction(i+1) if i != 3 else Direction(0)
+
+            try:
+                tile = tile.border[direction_1].border[direction_2]
+            except AttributeError:
+                # OCCURS WHEN THE .border[direction_1] is a nonetype
+                tile = tile.border[direction_1]
+            while tile is not None:
+                output[i] += 1
+
+                try:
+                    tile = tile.border[direction_1].border[direction_2]
+                except AttributeError:
+                    # OCCURS WHEN THE .border[direction_1] is a nonetype
+                    tile = tile.border[direction_1]
+        return output
+
+    def get_distance_to_tile_type_diagonal(self, max_distance, tile_type):
+        output = [0, 0, 0, 0]
+        for i in range(4):
+            tile = self.head
+
+            direction_1 = Direction(i)
+            direction_2 = Direction(i+1) if i != 3 else Direction(0)
+
+            try:
+                tile = tile.border[direction_1].border[direction_2]
+            except AttributeError:
+                # OCCURS WHEN THE .border[direction_1] is a nonetype
+                tile = tile.border[direction_1]
+            while True:
+                output[i] += 1
+                if tile is None:
+                    output[i] = max_distance
+                    break
+                elif tile.type == tile_type:
+                    break
+                try:
+                    tile = tile.border[direction_1].border[direction_2]
+                except AttributeError:
+                    # OCCURS WHEN THE .border[direction_1] is a nonetype
+                    tile = tile.border[direction_1]
+        return output
