@@ -22,6 +22,8 @@ class Menu:
         high_score = self.font.render(f"High Score: {self.high_score}", True, pygame.Color("black"))
         display.blit(high_score, (10, 30))
 
+        direction = self.font.render(f"Direction: {self.direction.name}", True, pygame.Color("black"))
+        display.blit(direction, (10, 50))
     @staticmethod
     def reset_score():
         if Menu.score > Menu.high_score:
