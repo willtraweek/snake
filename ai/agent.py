@@ -76,6 +76,12 @@ class Population:
             self.current += 1
 
     def create_offspring(self):
+        population = []
+        for _ in range(self.population_size):
+            mother, father = self.select_parents()
+            child = DNA(mother, father)
+            population.append(child)
+        self.population = population
 
 
     def select_parent(self):
