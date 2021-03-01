@@ -63,6 +63,18 @@ class Population:
             self.population.append(DNA())
         self.current = 0
 
+    def _increment(self):
+        """
+        Moves to the next dna strand in the population and creates offspring if it reaches the end
+        """
+        if self.current == self.population_size - 1:
+            self.current = 0
+            self.generation += 1
+            self.fill_statistics()
+            self.create_offspring()
+        else:
+            self.current += 1
+
     def create_offspring(self):
 
 
