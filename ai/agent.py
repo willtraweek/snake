@@ -1,6 +1,9 @@
 import numpy as np
 from base_game.tile import Direction
-import Math
+import random
+from queue import PriorityQueue
+from base_game.menu import Menu
+
 
 class DNA:
     mutation_rate = 10  # THE PERCENT CHANCE FOR A RANDOM MUTATION TO OCCUR
