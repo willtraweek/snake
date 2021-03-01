@@ -84,6 +84,11 @@ def main():
             move_count += 1
             Menu.moves = move_count
             board.move(current_direction)
+
+            if Menu.score < 5 and move_count > 200:
+                # AT THIS POINT, THE AI ISN'T DOING ANYTHING, BUT RUNNING IN CIRCLES
+                move_count = 10  # WE WANT TO PUNISH THIS ACTIVITY, so we lower the move count
+                raise RuntimeError
         except RuntimeError:
             current_direction = Direction.EAST if board.check_move(Direction.EAST) else Direction.WEST
             if player == Player.AI:
