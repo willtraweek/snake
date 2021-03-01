@@ -5,9 +5,9 @@ from base_game.board import Board
 from base_game.tile import Direction
 from base_game.menu import Menu
 from enum import Enum
+from ai import agent
 
 pygame.init()
-FPS = 5
 WINDOW_WIDTH = 600
 WINDOW_HEIGHT = 400
 BOARD_SIZE = 400
@@ -48,6 +48,12 @@ def main():
                 pygame.quit()
                 sys.exit()
             if event.type == KEYDOWN:
+                if event.key in [K_7]:
+                    FPS = 5
+                elif event.key in [K_8]:
+                    FPS = 30
+                elif event.key in [K_9]:
+                    FPS = 1000
                 # THE BELOW CODE ALLOWS FOR SAFE DIRECTION PICKING.  IT WON'T ALLOW THE SNAKE TO TURN IN A DIRECTION
                 # WHERE IT WOULD IMMEDIATELY DIE. FOR EXAMPLE, BY HITTING ITSELF.
                 if event.key in [K_UP, K_w] and player == Player.HUMAN:
