@@ -76,3 +76,15 @@ class Board:
         blanks = self.get_blank_tiles()
         tile = random.sample(blanks, 1)[0]
         tile.type = TileType.FOOD
+
+    def get_ai_inputs(self):
+        output = []
+        for direction in Direction:
+            output.append(self._snake.get_distance_to_wall(direction))
+            output.append(self._snake.get_distance_to_tile_type(direction, self.num_tiles, TileType.FOOD))
+            output.append(self._snake.get_distance_to_tile_type(direction, self.num_tiles, TileType.SNAKE))
+
+        output += self._snake.get_distance_to_walls_diagonal()
+        output += self._snake.get_distance_to_tile_type_diagonal(self.num_tiles, TileType.FOOD)
+        output += self._snake.get_distance_to_tile_type_diagonal(self.num_tiles, TileType.SNAKE)
+        return output
