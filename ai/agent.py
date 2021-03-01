@@ -128,6 +128,16 @@ class Population:
         self.fitness += fitness
 
         self._increment()
+
+    def fill_statistics(self):
+        Menu.average_score = '{0:.3g}'.format(self.score / self.population_size)
+        Menu.average_fit = '{0:.3g}'.format(self.fitness / self.population_size)
+        Menu.average_move_count = '{0:.3g}'.format(self.move_count / self.population_size)
+        self.score = 0
+        self.fitness = 0
+        self.move_count = 0
+
+
         temp = 0
         dna = 0
         for i in range(Math.random(sum_fitness)):
