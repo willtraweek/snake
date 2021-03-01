@@ -15,6 +15,27 @@ class DNA:
             raise RuntimeError("Please set input length")
         self.genes = []
 
+        for i in range(self.depth):
+            if i == 0:
+                temp = np.random.randint(low=-1, high=2, size=(self.input_length, self.hidden_length))
+            elif i == self.depth - 1:
+                temp = np.random.randint(low=-1, high=2, size=(self.hidden_length, self.output_length))
+            else:
+                temp = np.random.randint(low=-1, high=2, size=(self.hidden_length, self.hidden_length))
+
+            if mother and father:
+                for x in range(len(temp)):
+                    for y in range(len(temp[x])):
+                        if round(y) == 0:
+                            temp[x][y] = mother.genes[i][x][y]
+                        else:
+                            temp[x][y] = father.genes[i][x][y]
+
+                        if random.randint(0, 100) <= self.mutation_rate:
+                            temp[x][y] = random.randint(-1, 1)
+
+            self.genes.append(temp)
+
 class Population:
     def __init__(self, population_size):
         self.population_size = population_size
