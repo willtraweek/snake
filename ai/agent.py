@@ -50,9 +50,18 @@ class DNA:
 
 
 class Population:
+    generation = 0
+    # THESE ARE FOR MENU STATISTICS
+    score = 0
+    move_count = 0
+    fitness = 0
+
     def __init__(self, population_size):
         self.population_size = population_size
-        self.population = [] * population_size
+        self.population = []
+        for _ in range(population_size):
+            self.population.append(DNA())
+        self.current = 0
 
     def create_offspring(self):
 
