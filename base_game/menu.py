@@ -16,11 +16,11 @@ class Menu:
         # CLEAR THE MENU
         display.fill(self.background_color, (0, 0, self.window_width, self.window_height))
 
-        scorecard = self.font.render(f"Score: {self.score}", True, pygame.Color("black"))
-        display.blit(scorecard, (10, 10))
+        score = self.font.render(f"Score: {self.score}", True, pygame.Color("black"))
+        display.blit(score, (10, 10))
 
-        scorecard = self.font.render(f"High Score: {self.high_score}", True, pygame.Color("black"))
-        display.blit(scorecard, (10, 30))
+        high_score = self.font.render(f"High Score: {self.high_score}", True, pygame.Color("black"))
+        display.blit(high_score, (10, 30))
 
     @staticmethod
     def reset_score():
