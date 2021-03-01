@@ -4,6 +4,7 @@ import sys
 from base_game.board import Board
 from base_game.tile import Direction
 from base_game.menu import Menu
+from enum import Enum
 
 pygame.init()
 FPS = 5
@@ -34,6 +35,8 @@ def main():
     current_direction = Direction.EAST if board.check_move(Direction.EAST) else Direction.WEST
     potential_direction = current_direction
 
+    player = Player.HUMAN
+
     while True:
         menu.draw(display)
         if player == Player.AI:
@@ -47,14 +50,25 @@ def main():
             if event.type == KEYDOWN:
                 # THE BELOW CODE ALLOWS FOR SAFE DIRECTION PICKING.  IT WON'T ALLOW THE SNAKE TO TURN IN A DIRECTION
                 # WHERE IT WOULD IMMEDIATELY DIE. FOR EXAMPLE, BY HITTING ITSELF.
-                if event.key in [K_UP, K_w]:
+                if event.key in [K_UP, K_w] and player == Player.HUMAN:
                     potential_direction = current_direction.NORTH
-                elif event.key in [K_RIGHT, K_d]:
+                elif event.key in [K_RIGHT, K_d] and player == Player.HUMAN:
                     potential_direction = current_direction.EAST
-                elif event.key in [K_DOWN, K_s]:
+                elif event.key in [K_DOWN, K_s] and player == Player.HUMAN:
                     potential_direction = current_direction.SOUTH
-                elif event.key in [K_LEFT, K_a]:
+                elif event.key in [K_LEFT, K_a] and player == Player.HUMAN:
                     potential_direction = current_direction.WEST
+
+                # THE CODE BELOW ALLOWS THE USER TO SELECT IF HE WANTS TO PLAY OR IF THE AI SHOULD
+                if event.key in [K_1]:
+                    player = Player.HUMAN
+                    board.reset()
+                elif event.key in [K_2]:
+                    player = Player.AI
+                    board.reset()
+
+        if player == Player.AI:
+            potential_direction = agent.predict(population, board.get_ai_inputs())
 
         if board.check_move(potential_direction):
             current_direction = potential_direction
