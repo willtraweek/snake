@@ -143,3 +143,14 @@ class Population:
         for i in range(Math.random(sum_fitness)):
             if temp == 0: # MOVE ON TO THE NEXT GENE
                 dna = self.population[]
+def predict(population, inputs):
+    dna = population.population[population.current]
+
+    temp = dna.predict(inputs)
+    max = 0
+    prediction = Direction(0)
+    for i in range(len(temp)):
+        if temp[i] > max:
+            max = temp[i]
+            prediction = Direction(i)
+    return prediction
