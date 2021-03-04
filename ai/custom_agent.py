@@ -3,13 +3,14 @@ from base_game.tile import Direction
 import random
 from queue import PriorityQueue
 from base_game.menu import Menu
+import math
 
 
 class DNA:
     mutation_rate = 10  # THE PERCENT CHANCE FOR A RANDOM MUTATION TO OCCUR
     fitness = 1  # INIT THIS VALUE TO 1
-    depth = 5  # HIDDEN NODES LAYER COUNT = DEPTH - 1
-    hidden_length = 15  # HOW MANY NODES IN EACH HIDDEN LAYER
+    depth = 10  # HIDDEN NODES LAYER COUNT = DEPTH - 1
+    hidden_length = 20  # HOW MANY NODES IN EACH HIDDEN LAYER
     input_length = 0
     output_length = 4
 
@@ -46,6 +47,7 @@ class DNA:
         temp = inputs
         for i in range(self.depth):
             temp = np.dot(temp, self.genes[i])
+            temp = tan_h_v(temp)
         return temp
 
 
@@ -112,9 +114,9 @@ class Population:
 
         mother = weighted_random_selection(self.population, fitness_weights)
         father = weighted_random_selection(self.population, fitness_weights)
-        #while mother == father:
+        while mother == father:
             # PREVENT ONE STRONG GENE FROM RULING THE POOL
-            #father = weighted_random_selection(self.population, fitness_weights)
+            father = weighted_random_selection(self.population, fitness_weights)
 
         return mother, father
 
@@ -169,3 +171,10 @@ def predict(population, inputs):
             max = temp[i]
             prediction = Direction(i)
     return prediction
+
+
+def tan_h(input):
+    temp = math.e ** (2 * input)
+    return (temp - 1) / (temp + 1)
+
+tan_h_v = np.vectorize(tan_h)
