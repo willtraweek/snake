@@ -5,7 +5,7 @@ from base_game.board import Board
 from base_game.tile import Direction
 from base_game.menu import Menu
 from enum import Enum
-from ai import agent
+from ai import custom_agent
 
 pygame.init()
 WINDOW_WIDTH = 600
@@ -28,8 +28,8 @@ def main():
     FPS = 5
     move_count = 0
     board = Board(BOARD_SIZE, offset=MENU_WIDTH)
-    agent.DNA.input_length = len(board.get_ai_inputs())
-    population = agent.Population(1000)
+    custom_agent.DNA.input_length = len(board.get_ai_inputs())
+    population = custom_agent.Population(100)
     menu = Menu(MENU_WIDTH, WINDOW_WIDTH, WINDOW_HEIGHT, BACKGROUND_COLOR)
 
     current_direction = Direction.EAST if board.check_move(Direction.EAST) else Direction.WEST
@@ -74,7 +74,7 @@ def main():
                     board.reset()
 
         if player == Player.AI:
-            potential_direction = agent.predict(population, board.get_ai_inputs())
+            potential_direction = custom_agent.predict(population, board.get_ai_inputs())
 
         if board.check_move(potential_direction):
             current_direction = potential_direction
